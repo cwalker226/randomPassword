@@ -96,7 +96,7 @@ function genRandomChar(rtnChar) {
     charLower: "abcdefghijklmnopqrstuvwxyz",
     charUpper: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
     passwordNum: "0123456789",
-    specialChar: "!@#$%^?\+/':,(){}[]~-_."
+    specialChar: "!\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~"
   }
   return charTypeArray[rtnChar].charAt(Math.floor(Math.random() * charTypeArray[rtnChar].length));
 }
