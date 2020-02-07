@@ -39,32 +39,33 @@ function generatePassword() {
 
   if(charLowercase) {
     passwordArray.push("charLower");
-    genPassword += genRandomChar("charLower");
-    passLength--;
-    debugPassword("charLower", genPassword, passLength);
   }
   if(charUppercase) {
     passwordArray.push("charUpper");
-    genPassword += genRandomChar("charUpper");
-    passLength--;
-    debugPassword("charUpper", genPassword, passLength);
   }
   if(numPass) {
     passwordArray.push("passwordNum");
-    genPassword += genRandomChar("passwordNum");
-    passLength--;
-    debugPassword("passwordNum", genPassword, passLength);
   }
   if(charSpecial) {
     passwordArray.push("specialChar");
-    genPassword += genRandomChar("specialChar");
-    passLength--;
-    debugPassword("specialChar", genPassword, passLength);
   }
 
-  for (var i = 1; i <= passLength; i++){
+  var typeCheck = passwordArray.slice();
+
+  for (var i = passLength; i >= 1; i--){
     var charType = passwordArray[Math.floor(Math.random() * passwordArray.length)];
-    genPassword += genRandomChar(charType);
+    console.log("Random type: " + charType);
+    console.log("Types left: " + typeCheck);
+    if(typeCheck.indexOf(charType) > -1){
+      typeCheck.splice(typeCheck.indexOf(charType), 1);
+      genPassword += genRandomChar(charType);
+    }else if(typeCheck.length === i){
+      genPassword += genRandomChar(typeCheck[i-1]);
+      typeCheck.pop();
+    }else{
+      genPassword += genRandomChar(charType);
+    }
+    
     debugPassword(charType, genPassword, i);
   }
 
@@ -98,6 +99,7 @@ function genRandomChar(rtnChar) {
     passwordNum: "0123456789",
     specialChar: "!\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~"
   }
+  console.log("Return char: " + rtnChar);
   return charTypeArray[rtnChar].charAt(Math.floor(Math.random() * charTypeArray[rtnChar].length));
 }
 
